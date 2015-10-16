@@ -25,16 +25,12 @@ class Welcome extends Application {
 
         // Get all the completed orders
         //FIXME
-
+        $completed = $this->orders->some('status', 'c');
+        
         // Build a multi-dimensional array for reporting
         $orders = array();
         foreach ($completed as $order) {
-            $this1 = array(
-                'num' => $order->num,
-                'datetime' => $order->date,
-                'amount' => $order->total
-            );
-            $orders[] = $this1;
+            $orders[] = $this->orders->details($order->num);
         }
 
         // and pass these on to the view
